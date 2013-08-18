@@ -47,7 +47,8 @@ def concatZips(zip, folder, newpath):
     f = gzip.open(file, 'rb')
     file_content = f.read()
     with open(dest, "a") as myfile:
-          myfile.write(file_content)
+      myfile.write(file_content)
+      myfile.close()
     f.close()
 
 if __name__ == '__main__':
