@@ -37,7 +37,6 @@ def concatZips(zip, folder, newpath):
   """
   dest = './' + newpath + '/' + zip[:-3]
   print 'Creating ' + dest
-  command = 'gzip -dc'
   files = []
   for folder in folders:
     src = './' + folder + '/' + zip
