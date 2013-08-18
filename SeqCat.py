@@ -3,6 +3,7 @@
 import os, os.path, sys, errno
 from os.path import isdir
 import fnmatch
+import gzip
 
 def mkdir_p(newfolder):
   """
@@ -37,18 +38,17 @@ def concatZips(zip, folder, newpath):
   dest = './' + newpath + '/' + zip[:-3]
   print 'Creating ' + dest
   command = 'gzip -dc'
-  files = ''
+  files = []
   for folder in folders:
     src = './' + folder + '/' + zip
     if os.path.isfile(src):
-      file = ' ' + src
-      print "FILE: " + file
-      files += file
-  if files:
-    print "FILES:" + files
-    command += (files + ' > ' + dest)
-    process = os.popen(command)
-    process.close()
+      files.append(src)
+  for file in files:
+    f = gzip.open(file, 'rb')
+    file_content = f.read()
+    with open(dest, "a") as myfile:
+          myfile.write(file_content)
+    f.close()
 
 if __name__ == '__main__':
   if len(sys.argv) < 2:
